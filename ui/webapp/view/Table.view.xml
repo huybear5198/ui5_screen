@@ -1,0 +1,96 @@
+<mvc:View
+	controllerName="com.bosch.sbs.sbsfioritemplate.ui.controller.Table"
+	xmlns="sap.m"
+    xmlns:semantic="sap.f.semantic"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+    xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+    xmlns:ui="sap.ui.table"
+    xmlns:u="sap.ui.unified"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.f"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:plugins="sap.ui.table.plugins"
+    xmlns:vm="sap.ui.comp.variants"
+    height="100%">
+	<f:DynamicPage
+		showHeader="false"
+		enableScrolling="false"
+		class="sapUiContentPadding">
+		<!-- DynamicPage Header -->
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<f:content>
+					<Label text="Sold-to-party" labelFor="input-a" width="100%"/>
+					<Input id="input-a" required="true" width="15rem" placeholder="Enter"/>
+				</f:content>
+			</f:DynamicPageHeader>
+		</f:header>
+		<f:content>
+			<ui:Table
+				id="table"
+				rows="{/tableList}"
+				selectionMode="MultiToggle"
+				visibleRowCount="11"
+				paste="onPaste"
+				enableColumnReordering="false"
+				ariaLabelledBy="title" class="test-table">
+				<ui:extension>
+					<OverflowToolbar style="Clear">
+						<Title id="title" text="{store>/selectedVariantSetting}" />
+                        <Button id="button_variant" icon="sap-icon://navigation-down-arrow" width="30px" press="onHandleVariant"/>
+						<ToolbarSpacer/>
+						<Button class="sapUiSmallMarginBottom" id="buttonP" text="Process" press=".handleTableSelectDialogPress" ariaHasPopup="Dialog"/>
+						<Button id="buttonH" text="History" press="buttonPrHistory"/>
+						<Button id="buttonC" text="Cancel Order" press="buttonCancel"/>
+
+						<Button icon="sap-icon://action-settings" text="" press="onbSettingDialogPress" class="sapThemeHighlight-asBackgroundColor"/>
+					</OverflowToolbar>
+				</ui:extension>
+				<ui:columns>
+					<ui:Column id="Name" minWidth="11rem" sortProperty="Name">
+						<Label text="Request No." />
+						<ui:template>
+							<Text text="{requestNo}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+					<ui:Column minWidth="11rem" visible="{store>/bColumns/1/visible}">
+						<Label text="Request Type" />
+						<ui:template>
+							<Input value="{requestType}"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column minWidth="6rem" visible="{store>/bColumns/2/visible}" >
+						<Label text="Sold to-Party" />
+						<ui:template >
+							<Label text="{quantity}"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column minWidth="9rem" visible="{store>/bColumns/6/visible}">
+						<Label text="Ship to Party" />
+						<ui:template>
+							<Link text="Show Image" href="{productPicUrl}" target="_blank"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column minWidth="9rem" visible="{store>/bColumns/7/visible}">
+						<Label text="Purchase Order" />
+						<ui:template>
+							<Button text="Show Details" press="handleDetailsPress"/>
+						</ui:template>
+					</ui:Column>
+					<ui:Column minWidth="7rem" visible="{store>/bColumns/8/visible}">
+						<Label text="Sales Order No." />
+						<ui:template>
+							<Text text="{weightMeasure}" wrapping="false" />
+						</ui:template>
+					</ui:Column>
+				</ui:columns>
+				<ui:footer>
+                </ui:footer>
+			</ui:Table>
+		</f:content>
+		
+	</f:DynamicPage>
+</mvc:View>
